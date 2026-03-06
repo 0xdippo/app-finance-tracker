@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribbler Finance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-wallet"></i> Scribbler Finance Tracker</h1>
+                <p class="subtitle">Track your income and expenses with ease</p>
+            </div>
+            <div class="month-selector">
+                <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                <h2 id="current-month">February 2026</h2>
+                <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard-grid">
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card income-card">
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Monthly Income</h3>
+                            <p class="amount" id="income-amount">$1,000.00</p>
+                            <p class="card-subtext">Budget: $1,000.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card expenses-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Expenses</h3>
+                            <p class="amount" id="expenses-amount">$0.00</p>
+                            <p class="card-subtext">Remaining: $1,000.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card balance-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Balance</h3>
+                            <p class="amount" id="balance-amount">$1,000.00</p>
+                            <p class="card-subtext">Available to spend</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3><i class="fas fa-chart-pie"></i> Expense Categories</h3>
+                        <canvas id="category-chart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3><i class="fas fa-chart-bar"></i> Budget vs Actual</h3>
+                        <canvas id="budget-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Expense Management -->
+                <div class="expense-management">
+                    <div class="add-expense-section">
+                        <h3><i class="fas fa-plus-circle"></i> Add New Expense</h3>
+                        <form id="expense-form">
+                            <div class="form-group">
+                                <label for="expense-name"><i class="fas fa-tag"></i> Expense Name</label>
+                                <input type="text" id="expense-name" placeholder="e.g., Groceries, Rent, Coffee" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="expense-amount"><i class="fas fa-dollar-sign"></i> Amount</label>
+                                <input type="number" id="expense-amount" min="0.01" step="0.01" placeholder="0.00" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="expense-category"><i class="fas fa-folder"></i> Category</label>
+                                <select id="expense-category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="food">Food & Dining</option>
+                                    <option value="housing">Housing & Rent</option>
+                                    <option value="transportation">Transportation</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="shopping">Shopping</option>
+                                    <option value="utilities">Utilities</option>
+                                    <option value="health">Health & Wellness</option>
+                                    <option value="education">Education</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="expense-date"><i class="fas fa-calendar"></i> Date</label>
+                                <input type="date" id="expense-date" required>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Add Expense
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="expense-list-section">
+                        <h3><i class="fas fa-list"></i> Recent Expenses</h3>
+                        <div class="expense-list-controls">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="search-expense" placeholder="Search expenses...">
+                            </div>
+                            <select id="filter-category">
+                                <option value="">All Categories</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="housing">Housing & Rent</option>
+                                <option value="transportation">Transportation</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="utilities">Utilities</option>
+                                <option value="health">Health & Wellness</option>
+                                <option value="education">Education</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="expense-list" id="expense-list">
+                            <!-- Expenses will be loaded here -->
+                            <div class="empty-state">
+                                <i class="fas fa-receipt"></i>
+                                <p>No expenses added yet. Add your first expense above!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Insights -->
+                <div class="insights-section">
+                    <h3><i class="fas fa-lightbulb"></i> Monthly Insights</h3>
+                    <div class="insights-content">
+                        <div class="insight-card">
+                            <i class="fas fa-trophy"></i>
+                            <h4>Great Start!</h4>
+                            <p>You haven't spent anything this month. Your full $1,000 budget is available.</p>
+                        </div>
+                        <div class="insight-card">
+                            <i class="fas fa-bullseye"></i>
+                            <h4>Budget Status</h4>
+                            <p id="budget-status">100% of your budget remains</p>
+                        </div>
+                        <div class="insight-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Spending Trend</h4>
+                            <p id="spending-trend">No spending recorded yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 Scribbler Finance Tracker | Data saved locally in your browser</p>
+            <div class="footer-actions">
+                <button id="export-data" class="btn-secondary">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+                <button id="reset-data" class="btn-danger">
+                    <i class="fas fa-trash"></i> Reset All Data
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Expense Item Template (hidden) -->
+    <template id="expense-template">
+        <div class="expense-item">
+            <div class="expense-info">
+                <div class="expense-name-category">
+                    <h4 class="expense-name"></h4>
+                    <span class="expense-category"></span>
+                </div>
+                <div class="expense-details">
+                    <span class="expense-date"></span>
+                    <span class="expense-amount"></span>
+                </div>
+            </div>
+            <button class="btn-delete-expense">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>

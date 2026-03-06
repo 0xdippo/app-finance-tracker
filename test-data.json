@@ -1,0 +1,43 @@
+{
+  "sampleExpenses": [
+    {
+      "name": "Groceries",
+      "amount": 125.75,
+      "category": "food",
+      "date": "2026-02-05"
+    },
+    {
+      "name": "Electricity Bill",
+      "amount": 85.50,
+      "category": "utilities",
+      "date": "2026-02-10"
+    },
+    {
+      "name": "Gasoline",
+      "amount": 45.00,
+      "category": "transportation",
+      "date": "2026-02-08"
+    },
+    {
+      "name": "Netflix Subscription",
+      "amount": 15.99,
+      "category": "entertainment",
+      "date": "2026-02-01"
+    },
+    {
+      "name": "Coffee Shop",
+      "amount": 12.50,
+      "category": "food",
+      "date": "2026-02-12"
+    }
+  ],
+  "monthlyIncome": 1000,
+  "totalExpenses": 284.74,
+  "remainingBalance": 715.26,
+  "categoryBreakdown": {
+    "food": 138.25,
+    "utilities": 85.50,
+    "transportation": 45.00,
+    "entertainment": 15.99
+  }
+}

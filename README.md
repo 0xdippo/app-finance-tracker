@@ -1,4 +1,4 @@
-# Scribbler Finance Tracker
+# Finance Tracker
 
 A modern, responsive web application for tracking income and expenses with visual dashboards and insights.
 
@@ -145,12 +145,6 @@ Potential features for future development:
 6. **Currency support** - Multiple currencies
 7. **Data import** - CSV/Excel file upload
 8. **Cloud sync** - Optional backend integration
-
-## License
-This project is created for educational and demonstration purposes. Feel free to modify and use as needed.
-
-## Credits
-Created for Scribbler with ❤️ using modern web technologies.
 
 ## Getting Started
 Simply open `index.html` in any modern web browser. No installation or setup required!
